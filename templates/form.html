@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+</script>
+
+<head>
+    <title>Essay Predictor</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script>
+        function check() {
+            var d = $('#data').val();
+            var da = [{ 'essay': d }];
+            var a = JSON.stringify(da);
+
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:12345/predict",
+                dataType: 'json',
+                contentType: 'application/json',
+                data: a,
+                success: function (getdata) {
+                    $('#predict').val(getdata.prediction);
+                },
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1 align="center">Automated Essay Score Predictor</h1>
+    <hr>
+    <table cellspacing="10px" cellpadding="10px" align=center>
+        <tr>
+            <th colspan="2">Fill in the Details</th>
+        </tr>
+        <tr>
+            <td align="center">Enter Essay</td>
+            <td align="center"><textarea rows="15" cols="100" name="data" id="data"></textarea></td>
+        </tr>
+        <tr>
+            <td align="center">Prediction</td>
+            <td align="center"><input type="text" id="predict" disabled="disabled"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><button id="call" onclick="check()">Submit</button></td>
+        </tr>
+    </table>
+</body>
+
+</html>
